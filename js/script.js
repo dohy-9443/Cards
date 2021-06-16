@@ -27,7 +27,10 @@ const colorArray = [
   "purple",
   "purple",
 ];
+
+// 새로 시작할 때 돌릴 색깔 배열을 만듬
 let colorSelect = colorArray.slice();
+
 // 색상 배열에서 뽑은 색이 들어갈 배열
 let color = [];
 
@@ -47,13 +50,13 @@ let successCards = [];
 // 게임 시작시간
 let gameStart;
 
+// 색깔을 셔플할 함수를 작성
 const shuffle = () => {
   for (let i = 0; colorSelect.length > 0; i++) {
     color = color.concat(
       colorSelect.splice(Math.floor(Math.random() * colorSelect.length), 1)
     );
   }
-  console.log(color);
 };
 
 // 카드 세팅
@@ -115,6 +118,8 @@ const setting = (hori, verti) => {
   // 카드가 다 뒤집어지고 난 다음 true로 바꿔서 클릭이 되게 변경
   setTimeout(() => {
     clickFlag = true;
+
+    // 게임 시작!
     gameStart = new Date();
   }, 5500);
 
@@ -148,16 +153,37 @@ const setting = (hori, verti) => {
             cardArray = [];
 
             // 게임 초기화
+
+            // 성공카드배열의 길이가 20일 때
             if (successCards.length == 20) {
+              // 게임 끝 시간
               let gameEnd = new Date();
+
+              // 총 시간을 알기 위해 만든 변수
               let complete = (gameEnd - gameStart) / 1000;
+
+              // 알림창으로 출력
               alert("축하합니다!" + complete + " 초 걸렸습니다.");
+
+              // 카드들 싹다 비우고
               container.innerHTML = "";
+
+              // 성공카드 배열 비우고
               successCards = [];
+
+              // 색깔 비우고
               color = [];
+
+              // 랜덤으로 카드색 돌릴꺼 다시 만들고
               colorSelect = colorArray.slice();
+
+              // 시작시간 null로 바꾸고
               gameStart = null;
+
+              // 색 셔플 다시 하고
               shuffle();
+
+              // 세팅도 다시한다.
               setting(horizontal, vertical);
             }
 
